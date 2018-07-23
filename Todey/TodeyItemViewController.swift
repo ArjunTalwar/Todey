@@ -10,7 +10,7 @@ import UIKit
 
 class TodeyItemViewController: UITableViewController {
 
-    let itemArrary = ["Buy Milk","Buy Apple","Buy Juice"]
+    var itemArrary = ["Buy Milk","Buy Apple","Buy Juice"]
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +35,26 @@ class TodeyItemViewController: UITableViewController {
       
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
-
+    //Mark - Alert add button
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textfield = UITextField()
+        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle:.alert)
+       
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //what happen when user click on add button on our UIalert
+//            print(textfield.text!)
+            self.itemArrary.append(textfield.text!)
+            self.tableView.reloadData()
+        }
+        alert.addAction(action)
+        
+        alert.addTextField { (alertextfield) in
+            alertextfield.placeholder = "Create New Item"
+            textfield = alertextfield
+        }
+       
+        present(alert, animated: true, completion: nil)
+    }
+    
 }
 
