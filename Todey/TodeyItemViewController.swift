@@ -11,8 +11,12 @@ import UIKit
 class TodeyItemViewController: UITableViewController {
 
     var itemArrary = ["Buy Milk","Buy Apple","Buy Juice"]
+    let defaults = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let items = defaults.array(forKey: "TodoeyListArrary") as? [String]{
+          itemArrary = items
+        }
         
     }
     // Mark - Tableview DataSource Method
@@ -44,6 +48,7 @@ class TodeyItemViewController: UITableViewController {
             //what happen when user click on add button on our UIalert
 //            print(textfield.text!)
             self.itemArrary.append(textfield.text!)
+            self.defaults.set(self.itemArrary, forKey: "TodoeyListArrary")
             self.tableView.reloadData()
         }
         alert.addAction(action)
